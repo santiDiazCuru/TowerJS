@@ -1,0 +1,54 @@
+html {
+  height: 100%;
+}
+body {
+  padding: 10px;
+  background-color: black;
+  /*background-image: linear-gradient(black);*/
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: "100px";
+  margin: 5vh auto;
+  height: 80vh;
+  width: 50vh;
+  margin-bottom: -5px;
+  border: 2px double greenyellow;
+}
+.title {
+  color: greenyellow;
+}
+.legend {
+  color: greenyellow;
+}
+.cell {
+  border: 1px solid blueviolet;
+  border-radius: 35%;
+}
+.alive {
+  background-color: greenyellow;
+}
+#board {
+  margin-left: "100px";
+  margin: 5vh auto;
+  margin-bottom: -5px;
+}
+
+#board td {
+  border: 1px solid groove;
+  width: 11px;
+  height: 11px;
+}
+h3 {
+  margin-left: 1.5vw;
+  color: white;
+  margin-bottom: -30px;
+}
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
