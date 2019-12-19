@@ -32285,7 +32285,10 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
-      this.generateGrid();
+      var newTower = this.generateGrid();
+      this.setState({
+        tower: newTower
+      });
     }
   }, {
     key: "generateGrid",
@@ -32296,9 +32299,7 @@ function (_React$Component) {
         newTower.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
       }
 
-      this.setState({
-        tower: newTower
-      });
+      return newTower;
     }
   }, {
     key: "handleKeyDown",
@@ -32309,7 +32310,8 @@ function (_React$Component) {
         if (!this.state.playing) {
           this.setState({
             playing: true,
-            startModal: false
+            startModal: false,
+            score: 0
           }, function () {
             return _this2.play(true);
           });
@@ -32352,15 +32354,15 @@ function (_React$Component) {
           var newScore = this.state.score + this.state.length - count;
 
           if (this.state.length - count === 0) {
-            this.generateGrid();
+            var newTower = this.generateGrid();
             this.setState({
+              tower: newTower,
               currentRow: 29,
               startModal: true,
-              message: "Looser",
+              message: "Press space to retry, LOOOSER!",
               playing: false,
               interval: 200,
               clear: 0,
-              score: 0,
               length: 5
             });
           } else {
@@ -32397,18 +32399,26 @@ function (_React$Component) {
 
           var _tower = this.state.tower;
           var row = _tower[this.state.currentRow];
-          var position = this.state.length - 1;
           var length = this.state.length;
           var interval = this.state.interval;
-          var reverse = false;
+          var reverse = this.state.currentRow % 2 === 0 ? true : false;
+          var position = reverse ? row.length : this.state.length - 1;
           stop = setInterval(paintCells.bind(this), interval);
           this.setState({
             clear: stop
           });
         } else {
+          var _newTower = this.generateGrid();
+
           this.setState({
+            tower: _newTower,
+            currentRow: 29,
             startModal: true,
-            message: "Congrats, you've earned yourself an alfajor"
+            playing: false,
+            interval: 200,
+            clear: 0,
+            length: 5,
+            message: "Congrats, LOOSER"
           });
         }
       }
@@ -32418,7 +32428,8 @@ function (_React$Component) {
     value: function render() {
       if (this.state.startModal) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Modal__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          message: this.state.message
+          message: this.state.message,
+          score: this.state.score
         });
       }
 
@@ -32449,12 +32460,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
-  var message = _ref.message;
+  var message = _ref.message,
+      score = _ref.score;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
     className: "title"
-  }, "TowerJS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+  }, "TowerJS"), message === "Press space to begin" ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "score"
+  }, "Score: ", score), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "tower.png",
     width: "150px",
     height: "300px"

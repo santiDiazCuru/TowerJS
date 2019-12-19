@@ -18,6 +18,9 @@ body {
   margin-bottom: -5px;
   border: 2px double greenyellow;
 }
+.score {
+  color: red;
+}
 .title {
   color: greenyellow;
 }
